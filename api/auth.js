@@ -11,4 +11,12 @@ module.exports = {
       });
       httpUtil.get(path, cb);
     },
+    
+    getTicket: function(accessToken, cb) {
+      var path = '/getticket?' + querystring.stringify({
+        type: 'jsapi',
+        access_token: accessToken
+      });
+      httpUtil.get(path, cb);
+    }
 };

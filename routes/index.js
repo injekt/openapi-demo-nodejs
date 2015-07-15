@@ -18,7 +18,7 @@ var apis = {
           success: function(data) {
             if (data && data.access_token) {
               accessToken = data.access_token;
-              cb.success('OK');
+              cb.success('OK. access_token:' + accessToken);
             }
             else {
               error('cannot get access_token');
@@ -33,7 +33,7 @@ var apis = {
     tag: '创建部门',
     action: function(cb) {
       var dept = {
-        name: 'TestDeptNodeJs6',
+        name: 'TestDeptNodeJs8',
         parentid: '1',
         order: '1'
       };
@@ -68,9 +68,21 @@ var apis = {
   'department/delete': {
     tag: '删除部门',
     action: function(cb) {
-      department.delete(accessToken, '12321', {
+      department.delete(accessToken, departmentId, {
         success: function(data) {
           cb.success('OK. 删除部门id:' + departmentId);
+        },
+        error: cb.error
+      });
+    }
+  },
+  
+  'auth/getTicket': {
+    tag: '获取jsapi ticket',
+    action: function(cb) {
+      auth.getTicket(accessToken, {
+        success: function(data) {
+          cb.success('OK. jsapi ticket:' + data.ticket);
         },
         error: cb.error
       });
@@ -103,6 +115,10 @@ function addApi(apiName, api) {
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'OpenApiDemo (Nodejs ver.)' });
+});
+
+router.get('/jsapi', function(req, res, next) {
+  res.render('jsapi');
 });
 
 router.get('/getapis', function(req, res, next) {
