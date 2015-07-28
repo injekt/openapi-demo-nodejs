@@ -1,5 +1,5 @@
 var env = {
-    DEBUG: true
+    DEBUG: false
 }
 
 if (env.DEBUG) {
